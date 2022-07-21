@@ -110,8 +110,74 @@ docker build \
   --build-arg "GRAFANA_VERSION=latest" \
   --build-arg "GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource" \
   -t grafana-custom -f Dockerfile .
+
+docker build \
+  --build-arg "GRAFANA_VERSION=latest" \
+  --build-arg "GF_INSTALL_PLUGINS=snuids-radar-panel 1.4.4, grafana-piechart-panel 1.4.0, grafana-worldmap-panel 0.2.1, vonage-status-panel 1.0.9, natel-discrete-panel, briangann-gauge-panel, jdbranham-diagram-panel, grafana-simple-json-datasource" \
+  -t grafana-custom -f Dockerfile .
+
 ```
 
 ```
 docker run -d -p 3000:3000 --name=grafana grafana-custom
+
+docker run -d -p 3000:3000 --name=grafana-custom grafana-custom
 ```
+
+# Publishing your Custom Docker Image on Docker Hub
+
+https://www.howtoforge.com/tutorial/building-and-publishing-custom-docker-images/
+
+Your next option is to publish the created Docker image on the Docker Hub Repository. To do so, you will need to create an account on the Docker Hub signup webpage where you will provide a name, password, and email address for your account. I should also point out that the Docker Hub service is free for public docker images. Once you have created your account, you can push the image that you have previously created, to make it available for others to use.
+
+To do so, you will need the ID and the TAG of your “my-docker-whale” image.
+
+Run again the "docker images" command and note the ID and the TAG of your Docker image e.g. a69f3f5e1a31.
+
+Now, with the following command, we will prepare our Docker Image for its journey to the outside world (the accountname part of the command is your account name on the Docker Hube profile page):
+
+```java
+docker tag a69f3f5e1a31 accountname/my-docker-whale:latest
+
+docker tag 2b4ebf47e80b thomasconnors/grafana-custom:latest
+```
+
+Run the "docker images" command and verify your newly tagged image.
+
+Next, use the "docker login" command to log into the Docker Hub from the command line.
+
+The format for the login command is:
+
+```java
+docker login --username=yourhubusername --email=youremail@provider.com
+```
+
+When prompted, enter your password and press enter.
+
+Now you can push your image to the newly created repository:
+
+```java
+docker push accountname/my-docker-whale
+
+docker push thomasconnors/grafana-custom
+```
+
+The above command can take a while to complete depending on your connection's upload bandwidth as it uploads something like 180ΜΒ of data (in our example). Once it has completed, you can go to your profile on Docker Hub and check out your new image.
+
+## Downloading your Custom Image
+
+If you want to pull your image from your Docker Hub repository you will need to first delete the original image from your local machine because Docker would refuse to pull from the hub as the local and the remote images are identical.
+
+As you remember from the previous part, to remove a docker image, you must run the "docker rmi" command. You can use an ID or the name to remove an image:
+
+```java
+docker rmi -f a69f3f5e1a31
+```
+
+Now that the image is deleted you can pull and load the image from your repository using the "docker run" command by including your account name from Docker Hub.
+
+```java
+docker run accountname/my-docker-whale
+```
+
+Since we previously deleted the image and it was no longer available on our local system, Docker will download it and store it in the designated location.

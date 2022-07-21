@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  grafana:
+    # image: grafana-custom/grafana-custom
+    image: thomasconnors/concurrent-scraper
+    container_name: grafana-scraper
+    hostname: homeserver
+    environment:
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_BASIC_ENABLED=false
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    # restart: always
+volumes:
+  grafana_data:
+# - GF_INSTALL_PLUGINS=snuids-radar-panel 1.4.4, grafana-piechart-panel 1.4.0, grafana-worldmap-panel 0.2.1, vonage-status-panel 1.0.9, natel-discrete-panel, briangann-gauge-panel, jdbranham-diagram-panel, grafana-simple-json-datasource
+# influxdb_data:
+# chronograf_data:
