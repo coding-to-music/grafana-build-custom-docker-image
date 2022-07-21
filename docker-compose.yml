@@ -2,8 +2,8 @@ version: "3.7"
 services:
   grafana:
     # image: grafana-custom/grafana-custom
-    image: thomasconnors/concurrent-scraper
-    container_name: grafana-scraper
+    image: thomasconnors/grafana-custom
+    container_name: grafana-custom
     hostname: homeserver
     environment:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
