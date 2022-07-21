@@ -1,0 +1,21 @@
+{
+  "name": "grafana-build-custom-docker-image",
+  "version": "1.0.0",
+  "description": "# 🚀 Build and run a Grafana Docker image with pre-installed plugins 🚀",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "git add . && git commit -m Build && git push",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coding-to-music/grafana-build-custom-docker-image.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coding-to-music/grafana-build-custom-docker-image/issues"
+  },
+  "homepage": "https://github.com/coding-to-music/grafana-build-custom-docker-image#readme"
+}
